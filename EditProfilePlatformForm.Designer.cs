@@ -170,7 +170,6 @@
             this.Name = "EditProfilePlatformForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Прототип";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditProfilePlatformForm_FormClosing);
             this.groupBox6.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

@@ -46,7 +46,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComedyEvent.cs" />
+    <Compile Include="ArtistForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArtistForm.Designer.cs">
+      <DependentUpon>ArtistForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm.Designer.cs">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="classes\Artist.cs" />
+    <Compile Include="classes\ArtistGenre.cs" />
+    <Compile Include="classes\CurrentUser.cs" />
+    <Compile Include="classes\DatabaseHelper.cs" />
+    <Compile Include="classes\Event.cs" />
+    <Compile Include="classes\EventGenre.cs" />
+    <Compile Include="classes\EventParticipant.cs" />
+    <Compile Include="classes\Genre.cs" />
+    <Compile Include="classes\Notification.cs" />
+    <Compile Include="classes\PasswordHasher.cs" />
+    <Compile Include="classes\Platform.cs" />
+    <Compile Include="classes\User.cs" />
+    <Compile Include="EditBaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditBaseForm.Designer.cs">
+      <DependentUpon>EditBaseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditEventForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,6 +118,12 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PlatformForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlatformForm.Designer.cs">
+      <DependentUpon>PlatformForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProfileArtistForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +144,9 @@
     <Compile Include="RegistrationForm.Designer.cs">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ArtistForm.resx">
+      <DependentUpon>ArtistForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditEventForm.resx">
       <DependentUpon>EditEventForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -129,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlatformForm.resx">
+      <DependentUpon>PlatformForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProfileArtistForm.resx">
       <DependentUpon>ProfileArtistForm.cs</DependentUpon>

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Prototype
 {
-    public partial class EventArtistForm : Form
+    public partial class EventArtistForm : BaseForm
     {
         FeedForm feedForm;
         bool closingByBackButton = false;

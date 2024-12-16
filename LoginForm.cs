@@ -1,62 +1,28 @@
-﻿using System;
+﻿using Prototype.classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Prototype
 {
-    public partial class LoginForm : Form
+    public partial class LoginForm : BaseForm
     {
+        DatabaseHelper dbHelper = new DatabaseHelper();
         public LoginForm()
         {
             InitializeComponent();
+
+            dbHelper.TestConnection();
         }
-
-        private void InitializeForms()
-        {
-            FeedForm feedForm = new FeedForm();
-            ProfileArtistForm profileArtistForm = new ProfileArtistForm();
-            ProfilePlatformForm profilePlatformForm = new ProfilePlatformForm();
-
-            profileArtistForm.SwitchToFeed += (left, top) =>
-            {
-                feedForm.Left = left;
-                feedForm.Top = top;
-                feedForm.Show();
-            };
-
-            profilePlatformForm.SwitchToFeed += (left, top) =>
-            {
-                feedForm.Left = left;
-                feedForm.Top = top;
-                feedForm.Show();
-            };
-
-            feedForm.SwitchToArtistProfile += (left, top) =>
-            {
-                profileArtistForm.Left = left;
-                profileArtistForm.Top = top;
-                profileArtistForm.Show();
-            };
-
-            feedForm.SwitchToPlatformProfile += (left, top) =>
-            {
-                profilePlatformForm.Left = left;
-                profilePlatformForm.Top = top;
-                profilePlatformForm.Show();
-            };
-
-            feedForm.Left = Left;
-            feedForm.Top = Top;
-            feedForm.Show();
-        }
-
 
         // Установка начального подставного текста
         private void LoginForm_Load(object sender, EventArgs e)
@@ -67,8 +33,37 @@ namespace Prototype
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            InitializeForms();
-            Hide();
+            if (string.IsNullOrEmpty(loginTextBox.Text) || string.IsNullOrEmpty(passwordTextBox.Text) || loginTextBox.Text == "Логин" || passwordTextBox.Text == "Пароль")
+            { 
+                errorLabel.Text = "Пожалуйста, заполните все поля.";
+                return;
+            }
+
+            var result = dbHelper.ValidateUser(loginTextBox.Text, passwordTextBox.Text);
+
+            if (result.userID != -1)
+            {
+                if (result.userType == "Artist")
+                {
+                    var userInfo = dbHelper.GetUserById(result.userID);
+                    CurrentUser.UserID = userInfo.Id;
+                    CurrentUser.TypeID = userInfo.Artist.ArtistID;
+                    new ArtistForm() {Left = Left, Top = Top }.Show();
+                }
+                else if (result.userType == "Platform")
+                {
+                    var userInfo = dbHelper.GetUserById(result.userID);
+                    CurrentUser.UserID = userInfo.Id;
+                    CurrentUser.TypeID = userInfo.Platform.PlatformID;
+                    new PlatformForm() {Left = Left, Top = Top }.Show();
+                }
+                Hide();
+            }
+            else 
+            {
+                errorLabel.Text = "Некорректный логин или пароль.";
+            }
+
         }
 
         private void SetPlaceholder(System.Windows.Forms.TextBox textBox, string placeholderText, bool password = false)

@@ -74,7 +74,6 @@
             this.Name = "FeedForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Прототип";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FeedForm_FormClosing);
             this.ResumeLayout(false);
 
         }

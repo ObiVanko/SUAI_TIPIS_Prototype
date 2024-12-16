@@ -213,7 +213,6 @@
             this.Name = "EditProfileArtistForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Прототип";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditProfileArtistForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

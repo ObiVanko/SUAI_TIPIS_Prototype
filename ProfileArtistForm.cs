@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Prototype
 {
-    public partial class ProfileArtistForm : Form
+    public partial class ProfileArtistForm : BaseForm
     {
         public event Action<int, int> SwitchToFeed;
         public ProfileArtistForm()
@@ -22,11 +22,6 @@ namespace Prototype
         {
             SwitchToFeed?.Invoke(Left, Top);
             Hide();
-        }
-
-        private void ProfileForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Application.Exit();
         }
 
         private void editProfileButton_Click(object sender, EventArgs e)

@@ -10,30 +10,16 @@ using System.Windows.Forms;
 
 namespace Prototype
 {
-    public partial class EditProfilePlatformForm : Form
+    public partial class EditProfilePlatformForm : EditBaseForm
     {
-        ProfilePlatformForm ProfilePlatformForm;
-        public EditProfilePlatformForm(ProfilePlatformForm profilePlatformForm)
+        public EditProfilePlatformForm(BaseForm motherForm) : base(motherForm) 
         {
             InitializeComponent();
-            ProfilePlatformForm = profilePlatformForm;
         }
-
         private void backButton_Click(object sender, EventArgs e)
         {
-            profilePlatformForm.Left = Left;
-            profilePlatformForm.Top = Top;
-            profilePlatformForm.Show();
-            closingByBackButton = true;
-            Hide();
+            backToMother();
         }
 
-        private void EditProfilePlatformForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (!closingByBackButton)
-            {
-                Application.Exit();
-            }
-        }
     }
 }

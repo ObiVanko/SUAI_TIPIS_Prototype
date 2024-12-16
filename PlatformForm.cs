@@ -10,18 +10,11 @@ using System.Windows.Forms;
 
 namespace Prototype
 {
-    public partial class ProfilePlatformForm : BaseForm
+    public partial class PlatformForm : BaseForm
     {
-        public event Action<int, int> SwitchToFeed;
-        public ProfilePlatformForm()
+        public PlatformForm()
         {
             InitializeComponent();
-        }
-
-        private void feedButton_Click(object sender, EventArgs e)
-        {
-            SwitchToFeed?.Invoke(Left, Top);
-            Hide();
         }
 
         private void editProfileButton_Click(object sender, EventArgs e)
@@ -30,6 +23,16 @@ namespace Prototype
             editProfilePlatformForm.Left = Left;
             editProfilePlatformForm.Top = Top;
             editProfilePlatformForm.Show();
+
+            Hide();
+        }
+
+        private void addEventButton_Click(object sender, EventArgs e)
+        {
+            EditEventForm editEventForm = new EditEventForm(this);
+            editEventForm.Left = Left;
+            editEventForm.Top = Top;
+            editEventForm.Show();
 
             Hide();
         }

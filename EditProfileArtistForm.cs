@@ -10,31 +10,15 @@ using System.Windows.Forms;
 
 namespace Prototype
 {
-    public partial class EditProfileArtistForm : Form
+    public partial class EditProfileArtistForm : EditBaseForm
     {
-        ProfileArtistForm profileArtistForm;
-        bool closingByBackButton = false;
-        public EditProfileArtistForm(ProfileArtistForm profileArtistForm)
+        public EditProfileArtistForm(BaseForm motherForm) : base(motherForm)
         {
             InitializeComponent();
-            this.profileArtistForm = profileArtistForm;
         }
-
         private void backButton_Click(object sender, EventArgs e)
-        {            
-            profileArtistForm.Left = Left;
-            profileArtistForm.Top = Top;
-            profileArtistForm.Show();
-            closingByBackButton = true;
-            Hide();
-        }
-
-        private void EditProfileArtistForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!closingByBackButton)
-            {
-                Application.Exit();
-            }
+            backToMother();
         }
     }
 }

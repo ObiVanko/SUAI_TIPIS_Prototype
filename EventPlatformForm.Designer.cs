@@ -141,7 +141,6 @@
             this.Name = "EventPlatformForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Прототип";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EventPlatformForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
