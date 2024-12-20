@@ -63,6 +63,7 @@
             // 
             // platformLinkLabel
             // 
+            this.platformLinkLabel.AutoEllipsis = true;
             this.platformLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.platformLinkLabel.Location = new System.Drawing.Point(107, 31);
             this.platformLinkLabel.Name = "platformLinkLabel";
@@ -71,6 +72,7 @@
             this.platformLinkLabel.TabStop = true;
             this.platformLinkLabel.Text = "Площадка";
             this.platformLinkLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.platformLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.platformLinkLabel_LinkClicked);
             // 
             // seatsLabel
             // 
@@ -111,6 +113,7 @@
             // 
             // adressLabel
             // 
+            this.adressLabel.AutoEllipsis = true;
             this.adressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.adressLabel.Location = new System.Drawing.Point(107, 54);
             this.adressLabel.Name = "adressLabel";
@@ -121,6 +124,7 @@
             // 
             // nameLabel
             // 
+            this.nameLabel.AutoEllipsis = true;
             this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
             this.nameLabel.Location = new System.Drawing.Point(108, 11);
             this.nameLabel.Name = "nameLabel";

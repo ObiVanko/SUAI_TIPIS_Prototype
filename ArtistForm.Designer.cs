@@ -40,10 +40,18 @@
             this.avatarPictureBox = new System.Windows.Forms.PictureBox();
             this.nameLabel = new System.Windows.Forms.Label();
             this.notificationTabPage = new System.Windows.Forms.TabPage();
+            this.clearButton = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.readFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.Прочитанные = new System.Windows.Forms.GroupBox();
+            this.unreadFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tabControl1.SuspendLayout();
             this.eventsTabPage.SuspendLayout();
             this.profileTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).BeginInit();
+            this.notificationTabPage.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.Прочитанные.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -169,6 +177,9 @@
             // 
             // notificationTabPage
             // 
+            this.notificationTabPage.Controls.Add(this.clearButton);
+            this.notificationTabPage.Controls.Add(this.groupBox2);
+            this.notificationTabPage.Controls.Add(this.Прочитанные);
             this.notificationTabPage.Location = new System.Drawing.Point(4, 4);
             this.notificationTabPage.Name = "notificationTabPage";
             this.notificationTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -176,6 +187,52 @@
             this.notificationTabPage.TabIndex = 2;
             this.notificationTabPage.Text = "Уведомления";
             this.notificationTabPage.UseVisualStyleBackColor = true;
+            // 
+            // clearButton
+            // 
+            this.clearButton.Location = new System.Drawing.Point(85, 394);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(75, 23);
+            this.clearButton.TabIndex = 4;
+            this.clearButton.Text = "Очистить";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.readFlowLayoutPanel);
+            this.groupBox2.Location = new System.Drawing.Point(3, 204);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(238, 184);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Прочитанные";
+            // 
+            // readFlowLayoutPanel
+            // 
+            this.readFlowLayoutPanel.AutoScroll = true;
+            this.readFlowLayoutPanel.Location = new System.Drawing.Point(6, 19);
+            this.readFlowLayoutPanel.Name = "readFlowLayoutPanel";
+            this.readFlowLayoutPanel.Size = new System.Drawing.Size(226, 159);
+            this.readFlowLayoutPanel.TabIndex = 1;
+            // 
+            // Прочитанные
+            // 
+            this.Прочитанные.Controls.Add(this.unreadFlowLayoutPanel);
+            this.Прочитанные.Location = new System.Drawing.Point(3, 3);
+            this.Прочитанные.Name = "Прочитанные";
+            this.Прочитанные.Size = new System.Drawing.Size(238, 195);
+            this.Прочитанные.TabIndex = 2;
+            this.Прочитанные.TabStop = false;
+            this.Прочитанные.Text = "Непрочитанные";
+            // 
+            // unreadFlowLayoutPanel
+            // 
+            this.unreadFlowLayoutPanel.AutoScroll = true;
+            this.unreadFlowLayoutPanel.Location = new System.Drawing.Point(6, 19);
+            this.unreadFlowLayoutPanel.Name = "unreadFlowLayoutPanel";
+            this.unreadFlowLayoutPanel.Size = new System.Drawing.Size(226, 170);
+            this.unreadFlowLayoutPanel.TabIndex = 1;
             // 
             // ArtistForm
             // 
@@ -191,6 +248,9 @@
             this.eventsTabPage.ResumeLayout(false);
             this.profileTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).EndInit();
+            this.notificationTabPage.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.Прочитанные.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -209,5 +269,10 @@
         private System.Windows.Forms.Label ageLabel;
         private System.Windows.Forms.PictureBox avatarPictureBox;
         private System.Windows.Forms.Label nameLabel;
+        private System.Windows.Forms.FlowLayoutPanel unreadFlowLayoutPanel;
+        private System.Windows.Forms.Button clearButton;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.FlowLayoutPanel readFlowLayoutPanel;
+        private System.Windows.Forms.GroupBox Прочитанные;
     }
 }

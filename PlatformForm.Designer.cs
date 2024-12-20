@@ -36,13 +36,21 @@
             this.addressLabel = new System.Windows.Forms.Label();
             this.descriptionLabel = new System.Windows.Forms.Label();
             this.editProfileButton = new System.Windows.Forms.Button();
-            this.avatarPictureBox = new System.Windows.Forms.PictureBox();
             this.nameLabel = new System.Windows.Forms.Label();
             this.notificationTabPage = new System.Windows.Forms.TabPage();
+            this.avatarPictureBox = new System.Windows.Forms.PictureBox();
+            this.clearButton = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.readFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.Прочитанные = new System.Windows.Forms.GroupBox();
+            this.unreadFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tabControl1.SuspendLayout();
             this.eventsTabPage.SuspendLayout();
             this.profileTabPage.SuspendLayout();
+            this.notificationTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            this.Прочитанные.SuspendLayout();
             this.SuspendLayout();
             // 
             // feedListView
@@ -97,8 +105,8 @@
             this.profileTabPage.Controls.Add(this.addressLabel);
             this.profileTabPage.Controls.Add(this.descriptionLabel);
             this.profileTabPage.Controls.Add(this.editProfileButton);
-            this.profileTabPage.Controls.Add(this.avatarPictureBox);
             this.profileTabPage.Controls.Add(this.nameLabel);
+            this.profileTabPage.Controls.Add(this.avatarPictureBox);
             this.profileTabPage.Location = new System.Drawing.Point(4, 4);
             this.profileTabPage.Name = "profileTabPage";
             this.profileTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -111,9 +119,9 @@
             // addressLabel
             // 
             this.addressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
-            this.addressLabel.Location = new System.Drawing.Point(104, 29);
+            this.addressLabel.Location = new System.Drawing.Point(104, 56);
             this.addressLabel.Name = "addressLabel";
-            this.addressLabel.Size = new System.Drawing.Size(131, 67);
+            this.addressLabel.Size = new System.Drawing.Size(131, 40);
             this.addressLabel.TabIndex = 25;
             this.addressLabel.Text = "Адрес";
             this.addressLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -137,6 +145,29 @@
             this.editProfileButton.UseVisualStyleBackColor = true;
             this.editProfileButton.Click += new System.EventHandler(this.editProfileButton_Click);
             // 
+            // nameLabel
+            // 
+            this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.nameLabel.Location = new System.Drawing.Point(104, 6);
+            this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Size = new System.Drawing.Size(131, 50);
+            this.nameLabel.TabIndex = 21;
+            this.nameLabel.Text = "Название";
+            this.nameLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // notificationTabPage
+            // 
+            this.notificationTabPage.Controls.Add(this.clearButton);
+            this.notificationTabPage.Controls.Add(this.groupBox2);
+            this.notificationTabPage.Controls.Add(this.Прочитанные);
+            this.notificationTabPage.Location = new System.Drawing.Point(4, 4);
+            this.notificationTabPage.Name = "notificationTabPage";
+            this.notificationTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.notificationTabPage.Size = new System.Drawing.Size(244, 424);
+            this.notificationTabPage.TabIndex = 2;
+            this.notificationTabPage.Text = "Уведомления";
+            this.notificationTabPage.UseVisualStyleBackColor = true;
+            // 
             // avatarPictureBox
             // 
             this.avatarPictureBox.Location = new System.Drawing.Point(8, 6);
@@ -146,25 +177,51 @@
             this.avatarPictureBox.TabIndex = 22;
             this.avatarPictureBox.TabStop = false;
             // 
-            // nameLabel
+            // clearButton
             // 
-            this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.nameLabel.Location = new System.Drawing.Point(104, 6);
-            this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(131, 23);
-            this.nameLabel.TabIndex = 21;
-            this.nameLabel.Text = "Название";
-            this.nameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.clearButton.Location = new System.Drawing.Point(85, 396);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(75, 23);
+            this.clearButton.TabIndex = 7;
+            this.clearButton.Text = "Очистить";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
             // 
-            // notificationTabPage
+            // groupBox2
             // 
-            this.notificationTabPage.Location = new System.Drawing.Point(4, 4);
-            this.notificationTabPage.Name = "notificationTabPage";
-            this.notificationTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.notificationTabPage.Size = new System.Drawing.Size(244, 424);
-            this.notificationTabPage.TabIndex = 2;
-            this.notificationTabPage.Text = "Уведомления";
-            this.notificationTabPage.UseVisualStyleBackColor = true;
+            this.groupBox2.Controls.Add(this.readFlowLayoutPanel);
+            this.groupBox2.Location = new System.Drawing.Point(3, 206);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(238, 184);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Прочитанные";
+            // 
+            // readFlowLayoutPanel
+            // 
+            this.readFlowLayoutPanel.AutoScroll = true;
+            this.readFlowLayoutPanel.Location = new System.Drawing.Point(6, 19);
+            this.readFlowLayoutPanel.Name = "readFlowLayoutPanel";
+            this.readFlowLayoutPanel.Size = new System.Drawing.Size(226, 159);
+            this.readFlowLayoutPanel.TabIndex = 1;
+            // 
+            // Прочитанные
+            // 
+            this.Прочитанные.Controls.Add(this.unreadFlowLayoutPanel);
+            this.Прочитанные.Location = new System.Drawing.Point(3, 5);
+            this.Прочитанные.Name = "Прочитанные";
+            this.Прочитанные.Size = new System.Drawing.Size(238, 195);
+            this.Прочитанные.TabIndex = 5;
+            this.Прочитанные.TabStop = false;
+            this.Прочитанные.Text = "Непрочитанные";
+            // 
+            // unreadFlowLayoutPanel
+            // 
+            this.unreadFlowLayoutPanel.AutoScroll = true;
+            this.unreadFlowLayoutPanel.Location = new System.Drawing.Point(6, 19);
+            this.unreadFlowLayoutPanel.Name = "unreadFlowLayoutPanel";
+            this.unreadFlowLayoutPanel.Size = new System.Drawing.Size(226, 170);
+            this.unreadFlowLayoutPanel.TabIndex = 1;
             // 
             // PlatformForm
             // 
@@ -179,7 +236,10 @@
             this.tabControl1.ResumeLayout(false);
             this.eventsTabPage.ResumeLayout(false);
             this.profileTabPage.ResumeLayout(false);
+            this.notificationTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.Прочитанные.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -197,5 +257,10 @@
         private System.Windows.Forms.PictureBox avatarPictureBox;
         private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.Button addEventButton;
+        private System.Windows.Forms.Button clearButton;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.FlowLayoutPanel readFlowLayoutPanel;
+        private System.Windows.Forms.GroupBox Прочитанные;
+        private System.Windows.Forms.FlowLayoutPanel unreadFlowLayoutPanel;
     }
 }

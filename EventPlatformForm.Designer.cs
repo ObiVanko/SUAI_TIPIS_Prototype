@@ -37,7 +37,8 @@
             this.genresLabel = new System.Windows.Forms.Label();
             this.descriptionLabel = new System.Windows.Forms.Label();
             this.seatsLabel = new System.Windows.Forms.Label();
-            this.platformLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.inviteButton = new System.Windows.Forms.Button();
+            this.platformLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,6 +64,7 @@
             // 
             // adressLabel
             // 
+            this.adressLabel.AutoEllipsis = true;
             this.adressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.adressLabel.Location = new System.Drawing.Point(107, 55);
             this.adressLabel.Name = "adressLabel";
@@ -73,6 +75,7 @@
             // 
             // nameLabel
             // 
+            this.nameLabel.AutoEllipsis = true;
             this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
             this.nameLabel.Location = new System.Drawing.Point(108, 12);
             this.nameLabel.Name = "nameLabel";
@@ -127,24 +130,33 @@
             this.seatsLabel.Text = "Свободных мест:";
             this.seatsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // platformLinkLabel
+            // inviteButton
             // 
-            this.platformLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
-            this.platformLinkLabel.Location = new System.Drawing.Point(107, 32);
-            this.platformLinkLabel.Name = "platformLinkLabel";
-            this.platformLinkLabel.Size = new System.Drawing.Size(132, 23);
-            this.platformLinkLabel.TabIndex = 30;
-            this.platformLinkLabel.TabStop = true;
-            this.platformLinkLabel.Text = "Площадка";
-            this.platformLinkLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.platformLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.platformLinkLabel_LinkClicked);
+            this.inviteButton.Location = new System.Drawing.Point(42, 415);
+            this.inviteButton.Name = "inviteButton";
+            this.inviteButton.Size = new System.Drawing.Size(97, 23);
+            this.inviteButton.TabIndex = 31;
+            this.inviteButton.Text = "Пригласить";
+            this.inviteButton.UseVisualStyleBackColor = true;
+            this.inviteButton.Click += new System.EventHandler(this.inviteButton_Click);
+            // 
+            // platformLabel
+            // 
+            this.platformLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this.platformLabel.Location = new System.Drawing.Point(105, 35);
+            this.platformLabel.Name = "platformLabel";
+            this.platformLabel.Size = new System.Drawing.Size(133, 23);
+            this.platformLabel.TabIndex = 32;
+            this.platformLabel.Text = "Площадка";
+            this.platformLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // EventPlatformForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(252, 450);
-            this.Controls.Add(this.platformLinkLabel);
+            this.Controls.Add(this.platformLabel);
+            this.Controls.Add(this.inviteButton);
             this.Controls.Add(this.seatsLabel);
             this.Controls.Add(this.dateTimeLabel);
             this.Controls.Add(this.genresLabel);
@@ -174,6 +186,7 @@
         private System.Windows.Forms.Label genresLabel;
         private System.Windows.Forms.Label descriptionLabel;
         private System.Windows.Forms.Label seatsLabel;
-        private System.Windows.Forms.LinkLabel platformLinkLabel;
+        private System.Windows.Forms.Button inviteButton;
+        private System.Windows.Forms.Label platformLabel;
     }
 }

@@ -50,10 +50,13 @@ namespace Prototype
                 descriptionLabel.Text = "Описание: " + existingEvent.Description;
                 dateTimeLabel.Text = existingEvent.EventDate.ToString("yyyy-MM-dd HH:mm");
                 Platform eventPlatform = dbHelper.GetPlatformById(existingEvent.PlatformID);
-                platformLinkLabel.Text = eventPlatform.Name;
+                platformLabel.Text = eventPlatform.Name;
                 adressLabel.Text = eventPlatform.Address;
 
-                seatsLabel.Text = "Свободных мест: " + existingEvent.TotalSeats.ToString();
+                int signedUpArtistsCount = dbHelper.GetSignedUpArtistsCountForEvent(eventId);
+                int freeSeats = existingEvent.TotalSeats - signedUpArtistsCount;
+                seatsLabel.Text = "Свободных мест: " + freeSeats.ToString();
+
                 _image = existingEvent.Image;
                 imagePictureBox.Image = (Image)converter.ConvertFrom(_image);
 
@@ -70,17 +73,21 @@ namespace Prototype
             }
         }
 
-        private void platformLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            //existingEvent.PlatformID
-        }
-
         private void EventPlatformForm_Activated(object sender, EventArgs e)
         {
             if (_eventId > 0)
             {
                 LoadEventDetails(_eventId);
             }
+        }
+
+        private void inviteButton_Click(object sender, EventArgs e)
+        {
+            ArtistsFeedForm artistsFeedForm = new ArtistsFeedForm(this, _eventId);
+            artistsFeedForm.Left = Left;
+            artistsFeedForm.Top = Top;
+            artistsFeedForm.Show();
+            Hide();
         }
     }
 }

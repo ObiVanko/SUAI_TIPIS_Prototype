@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Windows.Forms.VisualStyles;
 
 namespace Prototype
 {
@@ -22,7 +24,13 @@ namespace Prototype
 
             InitializeComponent();
             SetupListView();
+        }
+
+        private void ArtistForm_Activated(object sender, EventArgs e)
+        {
             PopulateListView();
+            LoadArtistInfo();
+            NotificationInit();
         }
 
         // Мероприятия
@@ -126,10 +134,85 @@ namespace Prototype
             Hide();
         }
 
-        private void ArtistForm_Activated(object sender, EventArgs e)
+        //
+        //
+        //
+        // Уведомления
+
+        private void NotificationInit()
         {
-            PopulateListView();
-            LoadArtistInfo();
+            unreadFlowLayoutPanel.Controls.Clear();
+
+            var notifications = dbHelper.GetNotifications(); // Метод для загрузки уведомлений
+            foreach (var notification in notifications)
+            {
+                var item = new ListItemControl
+                {
+                    ItemText = notification.Message,
+                    ItemLinkText = dbHelper.GetEventById((int)notification.EventID).Name,
+                    NotificationID = notification.NotificationID,
+                    EventID = (int)notification.EventID
+                };
+
+                // Подписываемся на события
+                item.ButtonClick += OnNotificationReaded;
+                item.LinkClicked += OnEventLinkClicked;
+
+                unreadFlowLayoutPanel.Controls.Add(item);
+            }
+
+            readFlowLayoutPanel.Controls.Clear();
+            var readNotifications = dbHelper.GetReadedNotifications(); // Метод для загрузки уведомлений
+            foreach (var notification in readNotifications)
+            {
+                var item = new ListItemControl
+                {
+                    ItemText = notification.Message,
+                    ItemLinkText = dbHelper.GetEventById((int)notification.EventID).Name,
+                    NotificationID = notification.NotificationID,
+                    EventID = (int)notification.EventID
+                };
+
+                item.ButtinOff();
+                item.LinkClicked += OnEventLinkClicked;
+
+                readFlowLayoutPanel.Controls.Add(item);
+            }
+        }
+
+        private void OnNotificationReaded(object sender, EventArgs e)
+        {
+            var item = sender as ListItemControl;
+            if (item != null)
+            {
+                dbHelper.MarkNotificationAsRead(item.NotificationID); // Обновляем статус в базе
+            }
+            NotificationInit();
+        }
+
+        private void OnEventLinkClicked(object sender, EventArgs e)
+        {
+            var item = sender as ListItemControl;
+            if (item != null)
+            {
+                OpenEventDetails(item.EventID); // Метод для открытия формы с подробностями события
+            }
+        }
+
+        private void OpenEventDetails(int eventID)
+        {
+            // Откройте форму с подробностями события
+            var eventForm = new EventArtistForm(this, eventID);
+            eventForm.Left = Left;
+            eventForm.Top = Top;
+            eventForm.Show();
+            Hide();
+        }
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            dbHelper.DeleteReadNotifications(CurrentUser.UserID);
+            NotificationInit();
         }
     }
 }

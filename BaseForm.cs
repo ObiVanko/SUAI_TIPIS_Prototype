@@ -18,6 +18,7 @@ namespace Prototype
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Size = new Size(268, 489);
+            Text = "ComedyLobby";
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

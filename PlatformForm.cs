@@ -95,6 +95,7 @@ namespace Prototype
         {
             PopulateListView();
             LoadPlatformInfo();
+            NotificationInit();
         }
 
         //
@@ -120,6 +121,100 @@ namespace Prototype
             {
                 avatarPictureBox.Image = Properties.Resources.NoImage; 
             }
+        }
+
+        //
+        //
+        //
+        // Уведомления
+
+        private void NotificationInit()
+        {
+            unreadFlowLayoutPanel.Controls.Clear();
+
+            var notifications = dbHelper.GetNotifications(); // Метод для загрузки уведомлений
+            foreach (var notification in notifications)
+            {
+                var item = new ListItemControl2
+                {
+                    ItemText = notification.Message,
+                    ItemEventLinkText = dbHelper.GetEventById((int)notification.EventID).Name,
+                    ItemArtistLinkText = dbHelper.GetArtistById((int)notification.ArtistID).FullName,
+                    NotificationID = notification.NotificationID,
+                    EventID = (int)notification.EventID,
+                    ArtistID = (int)notification.ArtistID
+                };
+
+                // Подписываемся на события
+                item.ButtonClick += OnNotificationReaded;
+                item.EventLinkClicked += OnEventLinkClicked;
+                item.ArtistLinkClicked += OnArtistLinkClicked;
+
+                unreadFlowLayoutPanel.Controls.Add(item);
+            }
+
+            readFlowLayoutPanel.Controls.Clear();
+            var readNotifications = dbHelper.GetReadedNotifications(); // Метод для загрузки уведомлений
+            foreach (var notification in readNotifications)
+            {
+                var item = new ListItemControl2
+                {
+                    ItemText = notification.Message,
+                    ItemEventLinkText = dbHelper.GetEventById((int)notification.EventID).Name,
+                    ItemArtistLinkText = dbHelper.GetArtistById((int)notification.ArtistID).FullName,
+                    NotificationID = notification.NotificationID,
+                    EventID = (int)notification.EventID,
+                    ArtistID = (int)notification.ArtistID
+                };
+
+                item.ButtinOff();
+                item.EventLinkClicked += OnEventLinkClicked;
+                item.ArtistLinkClicked += OnArtistLinkClicked;
+
+                readFlowLayoutPanel.Controls.Add(item);
+            }
+        }
+
+        private void OnNotificationReaded(object sender, EventArgs e)
+        {
+            var item = sender as ListItemControl2;
+            if (item != null)
+            {
+                dbHelper.MarkNotificationAsRead(item.NotificationID); 
+            }
+            NotificationInit();
+        }
+
+        private void OnEventLinkClicked(object sender, EventArgs e)
+        {
+            var item = sender as ListItemControl2;
+            if (item != null)
+            {
+                var eventForm = new EventArtistForm(this, item.EventID);
+                eventForm.Left = Left;
+                eventForm.Top = Top;
+                eventForm.Show();
+                Hide(); 
+            }
+        }
+
+        private void OnArtistLinkClicked(object sender, EventArgs e)
+        {
+            var item = sender as ListItemControl2;
+            if (item != null)
+            {
+                var artistForm = new ArtistProfileForPlatforms(this, item.ArtistID);
+                artistForm.Left = Left;
+                artistForm.Top = Top;
+                artistForm.Show();
+                Hide(); 
+            }
+        }
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            dbHelper.DeleteReadNotifications(CurrentUser.UserID);
+            NotificationInit();
         }
     }
 }

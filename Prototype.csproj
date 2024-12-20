@@ -53,6 +53,18 @@
     <Compile Include="ArtistForm.Designer.cs">
       <DependentUpon>ArtistForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ArtistProfileForPlatforms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArtistProfileForPlatforms.Designer.cs">
+      <DependentUpon>ArtistProfileForPlatforms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ArtistsFeedForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArtistsFeedForm.Designer.cs">
+      <DependentUpon>ArtistsFeedForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +119,12 @@
     <Compile Include="EventPlatformForm.Designer.cs">
       <DependentUpon>EventPlatformForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListItemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ListItemControl.Designer.cs">
+      <DependentUpon>ListItemControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +137,12 @@
     <Compile Include="PlatformForm.Designer.cs">
       <DependentUpon>PlatformForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PlatformProfileForArtists.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlatformProfileForArtists.Designer.cs">
+      <DependentUpon>PlatformProfileForArtists.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistrationForm.cs">
@@ -127,8 +151,20 @@
     <Compile Include="RegistrationForm.Designer.cs">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListItemControl2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ListItemControl2.Designer.cs">
+      <DependentUpon>ListItemControl2.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ArtistForm.resx">
       <DependentUpon>ArtistForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ArtistProfileForPlatforms.resx">
+      <DependentUpon>ArtistProfileForPlatforms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ArtistsFeedForm.resx">
+      <DependentUpon>ArtistsFeedForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditEventForm.resx">
       <DependentUpon>EditEventForm.cs</DependentUpon>
@@ -145,11 +181,20 @@
     <EmbeddedResource Include="EventPlatformForm.resx">
       <DependentUpon>EventPlatformForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ListItemControl.resx">
+      <DependentUpon>ListItemControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListItemControl2.resx">
+      <DependentUpon>ListItemControl2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PlatformForm.resx">
       <DependentUpon>PlatformForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlatformProfileForArtists.resx">
+      <DependentUpon>PlatformProfileForArtists.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -179,9 +224,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Image1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="inwork___Resourses\Bar2.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\empty.png" />
