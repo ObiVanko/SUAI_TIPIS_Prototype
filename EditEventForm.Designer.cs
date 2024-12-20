@@ -33,6 +33,7 @@ namespace Prototype
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.errorLabel = new System.Windows.Forms.Label();
             this.removeAvatarButton = new System.Windows.Forms.Button();
             this.addAvatarButton = new System.Windows.Forms.Button();
             this.imagePictureBox = new System.Windows.Forms.PictureBox();
@@ -48,9 +49,9 @@ namespace Prototype
             this.editEventTabPage1 = new System.Windows.Forms.TabPage();
             this.editEventTabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.genreCheckedListBox = new System.Windows.Forms.CheckedListBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.descriptionRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.genreCheckedListBox = new System.Windows.Forms.CheckedListBox();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).BeginInit();
@@ -84,6 +85,7 @@ namespace Prototype
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.errorLabel);
             this.groupBox3.Controls.Add(this.removeAvatarButton);
             this.groupBox3.Controls.Add(this.addAvatarButton);
             this.groupBox3.Controls.Add(this.imagePictureBox);
@@ -93,6 +95,15 @@ namespace Prototype
             this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Фото";
+            // 
+            // errorLabel
+            // 
+            this.errorLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.errorLabel.ForeColor = System.Drawing.Color.Red;
+            this.errorLabel.Location = new System.Drawing.Point(109, 87);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(113, 27);
+            this.errorLabel.TabIndex = 11;
             // 
             // removeAvatarButton
             // 
@@ -240,6 +251,14 @@ namespace Prototype
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Жанры";
             // 
+            // genreCheckedListBox
+            // 
+            this.genreCheckedListBox.FormattingEnabled = true;
+            this.genreCheckedListBox.Location = new System.Drawing.Point(6, 19);
+            this.genreCheckedListBox.Name = "genreCheckedListBox";
+            this.genreCheckedListBox.Size = new System.Drawing.Size(216, 109);
+            this.genreCheckedListBox.TabIndex = 0;
+            // 
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.descriptionRichTextBox);
@@ -257,14 +276,6 @@ namespace Prototype
             this.descriptionRichTextBox.Size = new System.Drawing.Size(216, 205);
             this.descriptionRichTextBox.TabIndex = 0;
             this.descriptionRichTextBox.Text = "";
-            // 
-            // genreCheckedListBox
-            // 
-            this.genreCheckedListBox.FormattingEnabled = true;
-            this.genreCheckedListBox.Location = new System.Drawing.Point(6, 19);
-            this.genreCheckedListBox.Name = "genreCheckedListBox";
-            this.genreCheckedListBox.Size = new System.Drawing.Size(216, 109);
-            this.genreCheckedListBox.TabIndex = 0;
             // 
             // EditEventForm
             // 
@@ -317,5 +328,6 @@ namespace Prototype
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.RichTextBox descriptionRichTextBox;
         private System.Windows.Forms.CheckedListBox genreCheckedListBox;
+        private System.Windows.Forms.Label errorLabel;
     }
 }

@@ -33,7 +33,7 @@
             this.eventsTabPage = new System.Windows.Forms.TabPage();
             this.addEventButton = new System.Windows.Forms.Button();
             this.profileTabPage = new System.Windows.Forms.TabPage();
-            this.cityLabel = new System.Windows.Forms.Label();
+            this.addressLabel = new System.Windows.Forms.Label();
             this.descriptionLabel = new System.Windows.Forms.Label();
             this.editProfileButton = new System.Windows.Forms.Button();
             this.avatarPictureBox = new System.Windows.Forms.PictureBox();
@@ -53,6 +53,7 @@
             this.feedListView.Size = new System.Drawing.Size(252, 393);
             this.feedListView.TabIndex = 3;
             this.feedListView.UseCompatibleStateImageBehavior = false;
+            this.feedListView.ItemActivate += new System.EventHandler(this.feedListView_ItemActivate);
             // 
             // tabControl1
             // 
@@ -93,7 +94,7 @@
             // 
             // profileTabPage
             // 
-            this.profileTabPage.Controls.Add(this.cityLabel);
+            this.profileTabPage.Controls.Add(this.addressLabel);
             this.profileTabPage.Controls.Add(this.descriptionLabel);
             this.profileTabPage.Controls.Add(this.editProfileButton);
             this.profileTabPage.Controls.Add(this.avatarPictureBox);
@@ -107,21 +108,22 @@
             this.profileTabPage.Text = "Профиль";
             this.profileTabPage.UseVisualStyleBackColor = true;
             // 
-            // cityLabel
+            // addressLabel
             // 
-            this.cityLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
-            this.cityLabel.Location = new System.Drawing.Point(104, 29);
-            this.cityLabel.Name = "cityLabel";
-            this.cityLabel.Size = new System.Drawing.Size(131, 67);
-            this.cityLabel.TabIndex = 25;
-            this.cityLabel.Text = "Адрес";
-            this.cityLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.addressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this.addressLabel.Location = new System.Drawing.Point(104, 29);
+            this.addressLabel.Name = "addressLabel";
+            this.addressLabel.Size = new System.Drawing.Size(131, 67);
+            this.addressLabel.TabIndex = 25;
+            this.addressLabel.Text = "Адрес";
+            this.addressLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // descriptionLabel
             // 
+            this.descriptionLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.descriptionLabel.Location = new System.Drawing.Point(9, 99);
             this.descriptionLabel.Name = "descriptionLabel";
-            this.descriptionLabel.Size = new System.Drawing.Size(227, 269);
+            this.descriptionLabel.Size = new System.Drawing.Size(227, 293);
             this.descriptionLabel.TabIndex = 24;
             this.descriptionLabel.Text = "Описание";
             // 
@@ -140,6 +142,7 @@
             this.avatarPictureBox.Location = new System.Drawing.Point(8, 6);
             this.avatarPictureBox.Name = "avatarPictureBox";
             this.avatarPictureBox.Size = new System.Drawing.Size(90, 90);
+            this.avatarPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.avatarPictureBox.TabIndex = 22;
             this.avatarPictureBox.TabStop = false;
             // 
@@ -172,6 +175,7 @@
             this.Name = "PlatformForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "PlatfromForm";
+            this.Activated += new System.EventHandler(this.PlatformForm_Activated);
             this.tabControl1.ResumeLayout(false);
             this.eventsTabPage.ResumeLayout(false);
             this.profileTabPage.ResumeLayout(false);
@@ -187,7 +191,7 @@
         private System.Windows.Forms.TabPage eventsTabPage;
         private System.Windows.Forms.TabPage profileTabPage;
         private System.Windows.Forms.TabPage notificationTabPage;
-        private System.Windows.Forms.Label cityLabel;
+        private System.Windows.Forms.Label addressLabel;
         private System.Windows.Forms.Label descriptionLabel;
         private System.Windows.Forms.Button editProfileButton;
         private System.Windows.Forms.PictureBox avatarPictureBox;

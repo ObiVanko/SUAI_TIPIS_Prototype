@@ -12,8 +12,7 @@ namespace Prototype
 {
     public partial class EditBaseForm : BaseForm
     {
-        public bool closingByBackButton = false;
-        BaseForm motherForm;
+        public BaseForm motherForm;
 
         public EditBaseForm()
         {
@@ -31,17 +30,6 @@ namespace Prototype
             motherForm.Show();
             closingByBackButton = true;
             this.Close();
-        }
-
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
-
-            // Проверяем причину закрытия: крестик (UserClosing)
-            if (e.CloseReason == CloseReason.UserClosing && closingByBackButton == false)
-            {
-                Application.Exit();
-            }
         }
     }
 }

@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Prototype
 {
@@ -17,13 +16,16 @@ namespace Prototype
     {
         private DatabaseHelper dbHelper;
         private byte[] _image;
-        private int _eventId; 
+        private int _eventId;
+        ImageConverter imageConverter;
 
         public EditEventForm(BaseForm motherForm, int eventId = 0) : base(motherForm) 
         {
             InitializeComponent();
             dbHelper = new DatabaseHelper();
+            imageConverter = new ImageConverter();
             _eventId = eventId;
+            _image = (byte[])imageConverter.ConvertTo(Properties.Resources.NoImage, typeof(byte[]));
 
             var genres = dbHelper.GetGenres();
 
@@ -37,7 +39,6 @@ namespace Prototype
         {
             if (_eventId > 0)
             {
-                // Загружаем данные мероприятия для редактирования
                 LoadEventDetails(_eventId);
             }
         }
@@ -46,10 +47,6 @@ namespace Prototype
         {
             Event existingEvent = dbHelper.GetEventById(eventId);
             List<string> existingGenreNames = dbHelper.GetGenresByEventId(eventId).Names;
-            foreach (string genre in existingGenreNames)
-            {
-                Console.WriteLine(genre);
-            }
 
             if (existingEvent != null)
             {
@@ -58,12 +55,11 @@ namespace Prototype
                 dateTimePicker.Value = existingEvent.EventDate;
                 seatsNumericUpDown.Text = existingEvent.TotalSeats.ToString();
                 _image = existingEvent.Image;
-                imagePictureBox.Image = dbHelper.ByteArrayToImage(_image);
+                imagePictureBox.Image = (Image)imageConverter.ConvertFrom(_image);
 
                 for (int i = 0; i < genreCheckedListBox.Items.Count; i++)
                 {
                     string item = genreCheckedListBox.Items[i].ToString();
-                    Console.WriteLine(item);
                     if (existingGenreNames.Contains(item))
                     {
                         genreCheckedListBox.SetItemChecked(i, true);
@@ -90,7 +86,15 @@ namespace Prototype
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 // Загружаем выбранное изображение в PictureBox
-                imagePictureBox.Image = System.Drawing.Image.FromFile(openFileDialog.FileName);
+                try 
+                {
+                    imagePictureBox.Image = Image.FromFile(openFileDialog.FileName);
+                    errorLabel.Text = "";
+                }
+                catch (OutOfMemoryException) {
+                    errorLabel.Text = "Слишком большой файл";
+                }
+                
 
                 // Преобразуем изображение в массив байтов
                 _image = File.ReadAllBytes(openFileDialog.FileName);
@@ -100,7 +104,7 @@ namespace Prototype
         private void removeAvatarButton_Click(object sender, EventArgs e)
         {
             imagePictureBox.Image = null;
-            _image = null;
+            _image = (byte[])imageConverter.ConvertTo(Properties.Resources.NoImage, typeof(byte[]));
         }
 
         private void confirmButton_Click(object sender, EventArgs e)
@@ -171,7 +175,16 @@ namespace Prototype
         private void deleteEventButton_Click(object sender, EventArgs e)
         {
             dbHelper.DeleteEventById(_eventId);
-            backToMother();
+            if (motherForm is EditBaseForm editBaseForm)
+            {
+                editBaseForm.backToMother();
+                closingByBackButton = true;
+                Close();
+            }
+            else
+            {
+                backToMother();
+            }
         }
     }
 }

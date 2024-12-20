@@ -10,31 +10,72 @@ using System.Windows.Forms;
 
 namespace Prototype
 {
-    public partial class EventArtistForm : BaseForm
+    public partial class EventArtistForm : EditBaseForm
     {
-        FeedForm feedForm;
-        bool closingByBackButton = false;
-        public EventArtistForm(FeedForm feedForm)
+        private int _eventId;
+        private DatabaseHelper dbHelper;
+        private ImageConverter converter;
+        private byte[] _image;
+        public EventArtistForm(BaseForm motherForm, int eventId = 0) : base(motherForm)
         {
             InitializeComponent();
-            this.feedForm = feedForm;
+            _eventId = eventId;
+            dbHelper = new DatabaseHelper();
+            converter = new ImageConverter();
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            feedForm.Left = Left;
-            feedForm.Top = Top;
-            feedForm.Show();
-            closingByBackButton = true;
-            Hide();
+            backToMother();
         }
 
-        private void EventArtistForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void LoadEventDetails(int eventId)
         {
-            if (!closingByBackButton)
+            Event existingEvent = dbHelper.GetEventById(eventId);
+            List<string> existingGenreNames = dbHelper.GetGenresByEventId(eventId).Names;
+
+            if (existingEvent != null)
             {
-                Application.Exit();
+                nameLabel.Text = existingEvent.Name;
+                descriptionLabel.Text = "Описание: " + existingEvent.Description;
+                dateTimeLabel.Text = existingEvent.EventDate.ToString("yyyy-MM-dd HH:mm");
+                Platform eventPlatform = dbHelper.GetPlatformById(existingEvent.PlatformID);
+                platformLinkLabel.Text = eventPlatform.Name;
+                adressLabel.Text = eventPlatform.Address;
+
+                seatsLabel.Text = "Свободных мест: " + existingEvent.TotalSeats.ToString();
+                _image = existingEvent.Image;
+                imagePictureBox.Image = (Image)converter.ConvertFrom(_image);
+
+                if (existingGenreNames.Count > 0)
+                {
+                    string genresString = "Жанры: ";
+                    for (int i = 0; i < existingGenreNames.Count - 1; i++)
+                    {
+                        genresString += existingGenreNames[i] + "; ";
+                    }
+                    genresString += existingGenreNames.Last() + ".";
+                    genresLabel.Text = genresString;
+                }
             }
+        }
+
+        private void platformLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //existingEvent.PlatformID
+        }
+
+        private void EventArtistForm_Activated(object sender, EventArgs e)
+        {
+            if (_eventId > 0)
+            {
+                LoadEventDetails(_eventId);
+            }
+        }
+
+        private void signButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

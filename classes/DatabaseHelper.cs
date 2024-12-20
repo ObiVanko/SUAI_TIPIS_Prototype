@@ -14,10 +14,10 @@ namespace Prototype
     internal class DatabaseHelper
     {
         private readonly string _connectionString;
-
         public DatabaseHelper()
         {
             _connectionString = "Server = localhost; Database = PrototypeDataBase; Trusted_Connection=True;";
+           
         }
 
         public void TestConnection()
@@ -33,17 +33,6 @@ namespace Prototype
                 {
                     Console.WriteLine($"Connection failed: {ex.Message}");
                 }
-            }
-        }
-
-        public Image ByteArrayToImage(byte[] imageData)
-        {
-            if (imageData == null || imageData.Length == 0)
-                return null;
-
-            using (MemoryStream ms = new MemoryStream(imageData))
-            {
-                return Image.FromStream(ms);
             }
         }
 
@@ -123,6 +112,37 @@ namespace Prototype
             return (genreIds, genreNames);
         }
 
+        public (List<int> IDs, List<string> Names) GetGenresByArtistId(int artistId)
+        {
+            List<int> genreIds = new List<int>();
+            List<string> genreNames = new List<string>();
+            string query = @"
+                SELECT g.GenreId, g.Name
+                FROM ArtistGenres ag
+                INNER JOIN Genres g ON ag.GenreID = g.GenreID
+                WHERE ag.ArtistID = @artistID";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@artistId", artistId);
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            genreIds.Add(reader.GetInt32(0));
+                            genreNames.Add(reader.GetString(1));
+                        }
+                        reader.Close();
+                    }
+                }
+            }
+
+            return (genreIds, genreNames);
+        }
         public void AddEventGenre(int eventId, int genreId)
         {
             string query = "INSERT INTO EventGenres (EventID, GenreID) VALUES (@eventId, @genreId)";
@@ -146,6 +166,36 @@ namespace Prototype
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@eventId", eventId);
+                    command.Parameters.AddWithValue("@genreId", genreId);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void AddArtistGenre(int artistId, int genreId)
+        {
+            string query = "INSERT INTO ArtistGenres (ArtistID, GenreID) VALUES (@artistId, @genreId)";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@artistId", artistId);
+                    command.Parameters.AddWithValue("@genreId", genreId);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void RemoveArtistGenre(int artistId, int genreId)
+        {
+            string query = "DELETE FROM ArtistGenres WHERE ArtistID = @artistId AND GenreID = @genreId";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@artistId", artistId);
                     command.Parameters.AddWithValue("@genreId", genreId);
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -346,7 +396,7 @@ namespace Prototype
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT EventID, Name, Description, EventDate, TotalSeats, OccupiedSeats, Image " +
+                string query = "SELECT EventID, PlatformID, Name, Description, EventDate, TotalSeats, Image " +
                                "FROM Events WHERE EventID = @EventID";
 
                 SqlCommand command = new SqlCommand(query, connection);
@@ -360,11 +410,11 @@ namespace Prototype
                     eventDetails = new Event
                     {
                         EventID = (int)reader["EventID"],
+                        PlatformID = (int)reader["PlatformID"],
                         Name = (string)reader["Name"],
                         Description = (string)reader["Description"],
                         EventDate = (DateTime)reader["EventDate"],
                         TotalSeats = (int)reader["TotalSeats"],
-                        OccupiedSeats = (int)reader["OccupiedSeats"],
                         // Для изображения, если оно есть
                         Image = reader["Image"] as byte[]
                     };
@@ -416,6 +466,36 @@ namespace Prototype
             }
         }
 
+        public void UpdateArtist(Artist artist)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                string query = @"
+                UPDATE Artists
+                SET FullName = @FullName, Hometown = @Hometown, Description = @Description, Image = @Image, BirthDate = @BirthDate 
+                WHERE ArtistID = @ArtistID";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@FullName", artist.FullName);
+                    command.Parameters.AddWithValue("@Hometown", artist.Hometown);
+                    command.Parameters.AddWithValue("@Description", artist.Description);
+                    command.Parameters.AddWithValue("@Image", artist.Image);
+                    command.Parameters.AddWithValue("@BirthDate", artist.BirthDate);
+                    command.Parameters.AddWithValue("@ArtistID", artist.ArtistID);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected == 0)
+                    {
+                        throw new Exception("Обновление не выполнено. Платформа с указанным ID не найдена.");
+                    }
+                }
+            }
+        }
+
         public void CreatePlatform(int userId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -445,7 +525,7 @@ namespace Prototype
                 command.Parameters.AddWithValue("@Description", description);
                 command.Parameters.AddWithValue("@EventDate", eventDate);
                 command.Parameters.AddWithValue("@TotalSeats", totalSeats);
-                command.Parameters.AddWithValue("@Image", image == null ? (object)DBNull.Value : image);
+                command.Parameters.AddWithValue("@Image", image);
 
                 return (int)command.ExecuteScalar();
             }
@@ -470,8 +550,13 @@ namespace Prototype
             }
         }
 
-        public Artist GetArtistByUserId(int userId, SqlConnection connection)
+        public Artist GetArtistByUserId(int userId, SqlConnection connection = null)
         {
+            if (connection == null)
+            {
+                connection = new SqlConnection(_connectionString);
+                connection.Open();
+            }
             string query = "SELECT ArtistID, FullName, BirthDate, Hometown, Description, Image FROM [Artists] WHERE UserID = @userId";
             using (SqlCommand command = new SqlCommand(query, connection))
             {
@@ -498,8 +583,13 @@ namespace Prototype
             return null;
         }
 
-        public Platform GetPlatformByUserId(int userId, SqlConnection connection)
+        public Platform GetPlatformByUserId(int userId, SqlConnection connection = null)
         {
+            if (connection == null)
+            {
+                connection = new SqlConnection(_connectionString);
+                connection.Open();
+            }
             string query = "SELECT PlatformID, Name, Address, Description, Image FROM [Platforms] WHERE UserID = @userId";
             using (SqlCommand command = new SqlCommand(query, connection))
             {
@@ -525,6 +615,200 @@ namespace Prototype
             return null;
         }
 
+        public List<Event> GetAllEvents()
+        {
+            List<Event> events = new List<Event>();
+            string query = "SELECT EventID, PlatformID, Name, Description, EventDate, TotalSeats, Image FROM Events";
 
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                events.Add(new Event
+                                {
+                                    EventID = reader.GetInt32(0),
+                                    PlatformID = reader.GetInt32(1),
+                                    Name = reader.GetString(2),
+                                    Description = reader.GetString(3),
+                                    EventDate = reader.GetDateTime(4),
+                                    TotalSeats = reader.GetInt32(5),
+                                    Image = reader.IsDBNull(6) ? null : (byte[])reader["Image"]
+                                });
+                            }
+                            reader.Close();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error retrieving events: {ex.Message}");
+                }
+            }
+            return events;
+        }
+
+        public List<Event> GetEventsByPlatform(int platformId)
+        {
+            List<Event> events = new List<Event>();
+            string query = "SELECT EventID, PlatformID, Name, Description, EventDate, TotalSeats, OccupiedSeats, Image " +
+                           "FROM Events WHERE PlatformID = @PlatformID";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@PlatformID", platformId);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                events.Add(new Event
+                                {
+                                    EventID = reader.GetInt32(0),
+                                    PlatformID = reader.GetInt32(1),
+                                    Name = reader.GetString(2),
+                                    Description = reader.GetString(3),
+                                    EventDate = reader.GetDateTime(4),
+                                    TotalSeats = reader.GetInt32(5),
+                                    Image = reader.IsDBNull(6) ? null : (byte[])reader["Image"]
+                                });
+                            }
+                            reader.Close();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error retrieving events for platform {platformId}: {ex.Message}");
+                }
+            }
+            return events;
+        }
+
+        public Platform GetPlatformById(int platformId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = @"
+                SELECT PlatformID, UserId, Name, Address, Description, Image
+                FROM Platforms
+                WHERE PlatformID = @PlatformID";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@PlatformID", platformId);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                return new Platform
+                                {
+                                    PlatformID = reader.GetInt32(0),
+                                    UserID = reader.GetInt32(1),
+                                    Name = reader.IsDBNull(2) ? null : reader.GetString(2),
+                                    Address = reader.IsDBNull(3) ? null : reader.GetString(3),
+                                    Description = reader.IsDBNull(4) ? null : reader.GetString(4),
+                                    Image = reader.IsDBNull(5) ? null : (byte[])reader[5]
+                                };
+                                
+                            }
+                            reader.Close();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+            return null; 
+        }
+
+        public Artist GetArtistById(int artistId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = @"
+                SELECT ArtistID, UserId, FullName, BirthDate, Hometown, Description, Image
+                FROM Artists
+                WHERE ArtistID = @ArtistID";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@ArtistID", artistId);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                return new Artist
+                                {
+                                    ArtistID = reader.GetInt32(0),
+                                    UserID = reader.GetInt32(1),
+                                    FullName = reader.IsDBNull(2) ? null : reader.GetString(2),
+                                    BirthDate = reader.IsDBNull(3) ? DateTime.MinValue : reader.GetDateTime(3),
+                                    Hometown = reader.IsDBNull(4) ? null : reader.GetString(4),
+                                    Description = reader.IsDBNull(5) ? null : reader.GetString(5),
+                                    Image = reader.IsDBNull(6) ? null : (byte[])reader[6]
+                                };
+                            }
+                            reader.Close();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+            return null; 
+        }
+        public void UpdatePlatform(Platform platform)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                string query = @"
+                UPDATE Platforms
+                SET Name = @Name, Address = @Address, Description = @Description, Image = @Image
+                WHERE PlatformID = @PlatformID";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Name", platform.Name);
+                    command.Parameters.AddWithValue("@Address", platform.Address);
+                    command.Parameters.AddWithValue("@Description", platform.Description);
+                    command.Parameters.AddWithValue("@Image", platform.Image);
+                    command.Parameters.AddWithValue("@PlatformID", platform.PlatformID);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected == 0)
+                    {
+                        throw new Exception("Обновление не выполнено. Платформа с указанным ID не найдена.");
+                    }
+                }
+            }
+        }
     }
 }
+

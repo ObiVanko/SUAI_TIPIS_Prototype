@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prototype.classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,13 @@ namespace Prototype
 {
     public partial class ArtistForm : BaseForm
     {
+        private DatabaseHelper dbHelper;
+        private ImageConverter converter;
         public ArtistForm()
         {
+            dbHelper = new DatabaseHelper();
+            converter = new ImageConverter();
+
             InitializeComponent();
             SetupListView();
             PopulateListView();
@@ -33,26 +39,22 @@ namespace Prototype
         }
         private void PopulateListView()
         {
-            // Моковые данные
-            var items = new List<Event>
-            {
-                //new Event { Id = 1, Name = "Item 1", Description = "Description 1", Image = Properties.Resources.Image1 },
-                //new Event { Id = 2, Name = "Item 2", Description = "Description 2", Image = Properties.Resources.Image2 }
-            };
+            var items = dbHelper.GetAllEvents();
 
-            // Добавление изображений в ImageList
+            feedListView.Items.Clear();
+
             foreach (var item in items)
             {
-                //feedListView.LargeImageList.Images.Add(item.Name, item.Image);
+                feedListView.LargeImageList.Images.Add(item.Name, (Image)converter.ConvertFrom(item.Image));
             }
 
-            // Заполнение ListView
             foreach (var item in items)
             {
                 var listViewItem = new ListViewItem
                 {
                     Text = item.Name, // Основной текст
                     ImageKey = item.Name, // Привязка изображения по ключу
+                    Tag = item.EventID
                 };
                 listViewItem.SubItems.Add(item.Description); // Добавление дополнительного текста
                 feedListView.Items.Add(listViewItem);
@@ -63,31 +65,71 @@ namespace Prototype
         {
             if (feedListView.SelectedItems.Count > 0)
             {
-                //var selectedItem = feedListView.SelectedItems[0];
-                //EventArtistForm eventArtistForm = new EventArtistForm(this);
-                //eventArtistForm.Left = Left;
-                //eventArtistForm.Top = Top;
-                //eventArtistForm.Show();
-                //Hide();
-
-                //EventPlatformForm eventPlatformForm = new EventPlatformForm(this);
-                //eventPlatformForm.Left = Left;
-                //eventPlatformForm.Top = Top;
-                //eventPlatformForm.Show();
-                //Hide();
+                EventArtistForm eventArtistForm = new EventArtistForm(this, (int)feedListView.SelectedItems[0].Tag);
+                eventArtistForm.Left = Left;
+                eventArtistForm.Top = Top;
+                eventArtistForm.Show();
+                Hide();
             }
         }
 
-
+        //
+        //
+        //
         // Профиль
+
+        private void LoadArtistInfo()
+        {
+            Artist artist = dbHelper.GetArtistById(CurrentUser.TypeID);
+
+            // Заполнение элементов формы
+            nameLabel.Text = artist.FullName;
+            cityLabel.Text = artist.Hometown;
+            var nowDate = DateTime.Now;
+            int age = nowDate.Year - artist.BirthDate.Year;
+            if (nowDate < artist.BirthDate.AddYears(age))
+            {
+                age--;
+            }
+            ageLabel.Text = "Возраст: " + age.ToString();
+            descriptionLabel.Text = artist.Description;
+
+            // Установка аватара, если он есть, или замена на изображение по умолчанию
+            if (artist.Image != null && artist.Image.Length > 0)
+            {
+                avatarPictureBox.Image = (Image)converter.ConvertFrom(artist.Image);
+            }
+            else
+            {
+                avatarPictureBox.Image = Properties.Resources.NoImage;
+            }
+
+            List<string> existingGenreNames = dbHelper.GetGenresByArtistId(CurrentUser.TypeID).Names;
+            if (existingGenreNames.Count > 0)
+            {
+                string genresString = "Жанры: ";
+                for (int i = 0; i < existingGenreNames.Count - 1; i++)
+                {
+                    genresString += existingGenreNames[i] + "; ";
+                }
+                genresString += existingGenreNames.Last() + ".";
+                genresLabel.Text = genresString;
+            }
+        }
         private void editProfileButton_Click(object sender, EventArgs e)
         {
-            //EditProfileArtistForm editProfileArtistForm = new EditProfileArtistForm(this);
-            //editProfileArtistForm.Left = Left;
-            //editProfileArtistForm.Top = Top;
-            //editProfileArtistForm.Show();
+            EditProfileArtistForm editProfileArtistForm = new EditProfileArtistForm(this);
+            editProfileArtistForm.Left = Left;
+            editProfileArtistForm.Top = Top;
+            editProfileArtistForm.Show();
 
             Hide();
+        }
+
+        private void ArtistForm_Activated(object sender, EventArgs e)
+        {
+            PopulateListView();
+            LoadArtistInfo();
         }
     }
 }

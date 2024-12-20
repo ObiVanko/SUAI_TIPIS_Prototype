@@ -63,19 +63,9 @@ namespace Prototype.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Image1 {
+        internal static System.Drawing.Bitmap NoImage {
             get {
-                object obj = ResourceManager.GetObject("Image1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Image2 {
-            get {
-                object obj = ResourceManager.GetObject("Image2", resourceCulture);
+                object obj = ResourceManager.GetObject("NoImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

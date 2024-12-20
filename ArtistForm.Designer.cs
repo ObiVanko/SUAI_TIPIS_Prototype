@@ -112,17 +112,19 @@
             // 
             // genresLabel
             // 
+            this.genresLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.genresLabel.Location = new System.Drawing.Point(8, 112);
             this.genresLabel.Name = "genresLabel";
-            this.genresLabel.Size = new System.Drawing.Size(227, 19);
+            this.genresLabel.Size = new System.Drawing.Size(227, 40);
             this.genresLabel.TabIndex = 16;
             this.genresLabel.Text = "Жанры:";
             // 
             // descriptionLabel
             // 
-            this.descriptionLabel.Location = new System.Drawing.Point(9, 131);
+            this.descriptionLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.descriptionLabel.Location = new System.Drawing.Point(8, 163);
             this.descriptionLabel.Name = "descriptionLabel";
-            this.descriptionLabel.Size = new System.Drawing.Size(227, 242);
+            this.descriptionLabel.Size = new System.Drawing.Size(228, 229);
             this.descriptionLabel.TabIndex = 15;
             this.descriptionLabel.Text = "Описание";
             // 
@@ -151,6 +153,7 @@
             this.avatarPictureBox.Location = new System.Drawing.Point(8, 14);
             this.avatarPictureBox.Name = "avatarPictureBox";
             this.avatarPictureBox.Size = new System.Drawing.Size(90, 90);
+            this.avatarPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.avatarPictureBox.TabIndex = 12;
             this.avatarPictureBox.TabStop = false;
             // 
@@ -183,6 +186,7 @@
             this.Name = "ArtistForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Прототип";
+            this.Activated += new System.EventHandler(this.ArtistForm_Activated);
             this.tabControl1.ResumeLayout(false);
             this.eventsTabPage.ResumeLayout(false);
             this.profileTabPage.ResumeLayout(false);

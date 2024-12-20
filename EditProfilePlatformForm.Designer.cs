@@ -29,27 +29,28 @@
         private void InitializeComponent()
         {
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.descriptionRichTextBox = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.removeAvatarButton = new System.Windows.Forms.Button();
             this.addAvatarButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.imagePictureBox = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
             this.confirmButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.addressTextBox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.errorLabel = new System.Windows.Forms.Label();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.richTextBox1);
+            this.groupBox6.Controls.Add(this.descriptionRichTextBox);
             this.groupBox6.Location = new System.Drawing.Point(12, 251);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(228, 158);
@@ -57,19 +58,20 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Описание";
             // 
-            // richTextBox1
+            // descriptionRichTextBox
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(6, 19);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(216, 133);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.descriptionRichTextBox.Location = new System.Drawing.Point(6, 19);
+            this.descriptionRichTextBox.Name = "descriptionRichTextBox";
+            this.descriptionRichTextBox.Size = new System.Drawing.Size(216, 133);
+            this.descriptionRichTextBox.TabIndex = 0;
+            this.descriptionRichTextBox.Text = "";
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.errorLabel);
             this.groupBox3.Controls.Add(this.removeAvatarButton);
             this.groupBox3.Controls.Add(this.addAvatarButton);
-            this.groupBox3.Controls.Add(this.pictureBox1);
+            this.groupBox3.Controls.Add(this.imagePictureBox);
             this.groupBox3.Location = new System.Drawing.Point(12, 124);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(228, 121);
@@ -85,6 +87,7 @@
             this.removeAvatarButton.TabIndex = 10;
             this.removeAvatarButton.Text = "Удалить";
             this.removeAvatarButton.UseVisualStyleBackColor = true;
+            this.removeAvatarButton.Click += new System.EventHandler(this.removeAvatarButton_Click);
             // 
             // addAvatarButton
             // 
@@ -94,18 +97,20 @@
             this.addAvatarButton.TabIndex = 9;
             this.addAvatarButton.Text = "Изменить";
             this.addAvatarButton.UseVisualStyleBackColor = true;
+            this.addAvatarButton.Click += new System.EventHandler(this.addAvatarButton_Click);
             // 
-            // pictureBox1
+            // imagePictureBox
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(13, 19);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(90, 90);
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
+            this.imagePictureBox.Location = new System.Drawing.Point(13, 19);
+            this.imagePictureBox.Name = "imagePictureBox";
+            this.imagePictureBox.Size = new System.Drawing.Size(90, 90);
+            this.imagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imagePictureBox.TabIndex = 8;
+            this.imagePictureBox.TabStop = false;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.nameTextBox);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(228, 50);
@@ -113,12 +118,12 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Название";
             // 
-            // textBox1
+            // nameTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(216, 20);
-            this.textBox1.TabIndex = 9;
+            this.nameTextBox.Location = new System.Drawing.Point(6, 19);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(216, 20);
+            this.nameTextBox.TabIndex = 9;
             // 
             // confirmButton
             // 
@@ -128,6 +133,7 @@
             this.confirmButton.TabIndex = 15;
             this.confirmButton.Text = "Сохранить";
             this.confirmButton.UseVisualStyleBackColor = true;
+            this.confirmButton.Click += new System.EventHandler(this.confirmButton_Click);
             // 
             // backButton
             // 
@@ -139,22 +145,31 @@
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
-            // textBox2
+            // addressTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(6, 19);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(216, 20);
-            this.textBox2.TabIndex = 9;
+            this.addressTextBox.Location = new System.Drawing.Point(6, 19);
+            this.addressTextBox.Name = "addressTextBox";
+            this.addressTextBox.Size = new System.Drawing.Size(216, 20);
+            this.addressTextBox.TabIndex = 9;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.addressTextBox);
             this.groupBox2.Location = new System.Drawing.Point(12, 68);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(228, 50);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Адрес";
+            // 
+            // errorLabel
+            // 
+            this.errorLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.errorLabel.ForeColor = System.Drawing.Color.Red;
+            this.errorLabel.Location = new System.Drawing.Point(109, 87);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(113, 27);
+            this.errorLabel.TabIndex = 12;
             // 
             // EditProfilePlatformForm
             // 
@@ -172,7 +187,7 @@
             this.Text = "Прототип";
             this.groupBox6.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -184,16 +199,17 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox descriptionRichTextBox;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button removeAvatarButton;
         private System.Windows.Forms.Button addAvatarButton;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox imagePictureBox;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Button confirmButton;
         private System.Windows.Forms.Button backButton;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox addressTextBox;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label errorLabel;
     }
 }
