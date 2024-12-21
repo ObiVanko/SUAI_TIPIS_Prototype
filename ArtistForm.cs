@@ -47,24 +47,38 @@ namespace Prototype
         }
         private void PopulateListView()
         {
-            var items = dbHelper.GetAllEvents();
+            var items = dbHelper.GetAllEvents(); // Получение всех мероприятий
+            int artistId = CurrentUser.TypeID; // Получение ID текущего артиста
+            var signedUpEventIds = dbHelper.GetEventsSignedUpByArtist(artistId); // Получение ID мероприятий, на которые записан артист
 
             feedListView.Items.Clear();
 
             foreach (var item in items)
             {
+                if (feedListView.LargeImageList.Images.ContainsKey(item.Name)) continue;
                 feedListView.LargeImageList.Images.Add(item.Name, (Image)converter.ConvertFrom(item.Image));
             }
 
-            foreach (var item in items)
+            var sortedItems = items
+                .OrderByDescending(item => signedUpEventIds.Contains(item.EventID))
+                .ToList();
+
+            foreach (var item in sortedItems)
             {
                 var listViewItem = new ListViewItem
                 {
-                    Text = item.Name, // Основной текст
-                    ImageKey = item.Name, // Привязка изображения по ключу
+                    Text = item.Name, 
+                    ImageKey = item.Name,
                     Tag = item.EventID
                 };
-                listViewItem.SubItems.Add(item.Description); // Добавление дополнительного текста
+                listViewItem.SubItems.Add(item.Description); 
+
+                
+                if (signedUpEventIds.Contains(item.EventID))
+                {
+                    listViewItem.BackColor = Color.LightGreen;
+                }
+
                 feedListView.Items.Add(listViewItem);
             }
         }
@@ -195,19 +209,14 @@ namespace Prototype
             var item = sender as ListItemControl;
             if (item != null)
             {
-                OpenEventDetails(item.EventID); // Метод для открытия формы с подробностями события
+                var eventForm = new EventArtistForm(this, item.EventID);
+                eventForm.Left = Left;
+                eventForm.Top = Top;
+                eventForm.Show();
+                Hide(); 
             }
         }
 
-        private void OpenEventDetails(int eventID)
-        {
-            // Откройте форму с подробностями события
-            var eventForm = new EventArtistForm(this, eventID);
-            eventForm.Left = Left;
-            eventForm.Top = Top;
-            eventForm.Show();
-            Hide();
-        }
 
         private void clearButton_Click(object sender, EventArgs e)
         {

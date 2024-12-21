@@ -62,7 +62,7 @@
             this.artistsListView.TabIndex = 17;
             this.artistsListView.UseCompatibleStateImageBehavior = false;
             // 
-            // ArtistsFeed
+            // ArtistsFeedForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -70,9 +70,8 @@
             this.Controls.Add(this.artistsListView);
             this.Controls.Add(this.inviteButton);
             this.Controls.Add(this.backButton);
-            this.Name = "ArtistsFeed";
+            this.Name = "ArtistsFeedForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "ArtistsFeed";
             this.ResumeLayout(false);
 
         }

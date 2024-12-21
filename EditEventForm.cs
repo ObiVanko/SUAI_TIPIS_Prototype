@@ -174,16 +174,32 @@ namespace Prototype
 
         private void deleteEventButton_Click(object sender, EventArgs e)
         {
-            dbHelper.DeleteEventById(_eventId);
-            if (motherForm is EditBaseForm editBaseForm)
+            // Показываем окно подтверждения
+            DialogResult result = MessageBox.Show(
+                "Вы уверены, что хотите удалить это мероприятие? Это действие нельзя отменить.",
+                "Подтверждение удаления",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            // Если пользователь нажал "Да"
+            if (result == DialogResult.Yes)
             {
-                editBaseForm.backToMother();
-                closingByBackButton = true;
-                Close();
-            }
-            else
-            {
-                backToMother();
+                dbHelper.DeleteEventById(_eventId); 
+
+                MessageBox.Show("Мероприятие успешно удалено.", "Удаление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Возврат на родительскую форму
+                if (motherForm is EditBaseForm editBaseForm)
+                {
+                    editBaseForm.backToMother();
+                    closingByBackButton = true;
+                    Close();
+                }
+                else
+                {
+                    backToMother();
+                }
             }
         }
     }

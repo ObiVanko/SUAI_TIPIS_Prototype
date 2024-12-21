@@ -108,11 +108,6 @@ namespace Prototype
                 LoadEventDetails(_eventId);
                 UpdateSignButtonState();
             }
-            else
-            {
-                // Если пользователь нажал "Нет", ничего не делаем
-                MessageBox.Show("Вы отменили запись на мероприятие.");
-            }
         }
 
         private void UpdateSignButtonState()
@@ -159,10 +154,6 @@ namespace Prototype
      
                 LoadEventDetails(_eventId);
                 UpdateSignButtonState();
-            }
-            else
-            {
-                MessageBox.Show("Вы отменили отмену записи.");
             }
         }
     }

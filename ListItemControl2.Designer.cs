@@ -54,11 +54,12 @@
             // 
             // readedButton
             // 
-            this.readedButton.Location = new System.Drawing.Point(172, 9);
+            this.readedButton.BackgroundImage = global::Prototype.Properties.Resources.icon;
+            this.readedButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.readedButton.Location = new System.Drawing.Point(173, 17);
             this.readedButton.Name = "readedButton";
             this.readedButton.Size = new System.Drawing.Size(22, 20);
             this.readedButton.TabIndex = 2;
-            this.readedButton.Text = "button1";
             this.readedButton.UseVisualStyleBackColor = true;
             // 
             // artistLinkLabel

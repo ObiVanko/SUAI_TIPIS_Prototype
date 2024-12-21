@@ -267,7 +267,6 @@
             this.Controls.Add(this.confirmButton);
             this.Name = "EditProfileArtistForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Прототип";
             ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

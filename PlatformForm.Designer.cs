@@ -38,19 +38,19 @@
             this.editProfileButton = new System.Windows.Forms.Button();
             this.nameLabel = new System.Windows.Forms.Label();
             this.notificationTabPage = new System.Windows.Forms.TabPage();
-            this.avatarPictureBox = new System.Windows.Forms.PictureBox();
             this.clearButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.readFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.Прочитанные = new System.Windows.Forms.GroupBox();
             this.unreadFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.avatarPictureBox = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.eventsTabPage.SuspendLayout();
             this.profileTabPage.SuspendLayout();
             this.notificationTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.Прочитанные.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // feedListView
@@ -168,15 +168,6 @@
             this.notificationTabPage.Text = "Уведомления";
             this.notificationTabPage.UseVisualStyleBackColor = true;
             // 
-            // avatarPictureBox
-            // 
-            this.avatarPictureBox.Location = new System.Drawing.Point(8, 6);
-            this.avatarPictureBox.Name = "avatarPictureBox";
-            this.avatarPictureBox.Size = new System.Drawing.Size(90, 90);
-            this.avatarPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.avatarPictureBox.TabIndex = 22;
-            this.avatarPictureBox.TabStop = false;
-            // 
             // clearButton
             // 
             this.clearButton.Location = new System.Drawing.Point(85, 396);
@@ -223,6 +214,15 @@
             this.unreadFlowLayoutPanel.Size = new System.Drawing.Size(226, 170);
             this.unreadFlowLayoutPanel.TabIndex = 1;
             // 
+            // avatarPictureBox
+            // 
+            this.avatarPictureBox.Location = new System.Drawing.Point(8, 6);
+            this.avatarPictureBox.Name = "avatarPictureBox";
+            this.avatarPictureBox.Size = new System.Drawing.Size(90, 90);
+            this.avatarPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.avatarPictureBox.TabIndex = 22;
+            this.avatarPictureBox.TabStop = false;
+            // 
             // PlatformForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,15 +231,14 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "PlatformForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "PlatfromForm";
             this.Activated += new System.EventHandler(this.PlatformForm_Activated);
             this.tabControl1.ResumeLayout(false);
             this.eventsTabPage.ResumeLayout(false);
             this.profileTabPage.ResumeLayout(false);
             this.notificationTabPage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.Прочитанные.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }

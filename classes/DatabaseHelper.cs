@@ -515,9 +515,9 @@ namespace Prototype
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "INSERT INTO Events (PlatformID, Name, Description, EventDate, TotalSeats, OccupiedSeats, Image) " +
+                string query = "INSERT INTO Events (PlatformID, Name, Description, EventDate, TotalSeats, Image) " +
                                "OUTPUT INSERTED.EventID " +
-                               "VALUES (@PlatformID, @Name, @Description, @EventDate, @TotalSeats, 0, @Image)";
+                               "VALUES (@PlatformID, @Name, @Description, @EventDate, @TotalSeats, @Image)";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@PlatformID", CurrentUser.TypeID);
@@ -657,7 +657,7 @@ namespace Prototype
         public List<Event> GetEventsByPlatform(int platformId)
         {
             List<Event> events = new List<Event>();
-            string query = "SELECT EventID, PlatformID, Name, Description, EventDate, TotalSeats, OccupiedSeats, Image " +
+            string query = "SELECT EventID, PlatformID, Name, Description, EventDate, TotalSeats, Image " +
                            "FROM Events WHERE PlatformID = @PlatformID";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -1138,6 +1138,30 @@ namespace Prototype
                     }
                 }
             }
+        }
+
+        public List<int> GetEventsSignedUpByArtist(int artistId)
+        {
+            List<int> signedUpEventIds = new List<int>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT EventID FROM ArtistEvents WHERE ArtistID = @ArtistID";
+                var command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ArtistID", artistId);
+
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        signedUpEventIds.Add(reader.GetInt32(0)); // Добавление EventID
+                    }
+                    reader.Close();
+                }
+            }
+
+            return signedUpEventIds;
         }
 
     }

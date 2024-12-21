@@ -166,6 +166,12 @@
     <EmbeddedResource Include="ArtistsFeedForm.resx">
       <DependentUpon>ArtistsFeedForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditBaseForm.resx">
+      <DependentUpon>EditBaseForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditEventForm.resx">
       <DependentUpon>EditEventForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -229,6 +235,7 @@
     <None Include="Resources\empty.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\icon.jpg" />
     <Content Include="Resources\NoImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -36,7 +36,6 @@ namespace Prototype
             this.errorLabel = new System.Windows.Forms.Label();
             this.removeAvatarButton = new System.Windows.Forms.Button();
             this.addAvatarButton = new System.Windows.Forms.Button();
-            this.imagePictureBox = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.confirmButton = new System.Windows.Forms.Button();
@@ -52,9 +51,9 @@ namespace Prototype
             this.genreCheckedListBox = new System.Windows.Forms.CheckedListBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.descriptionRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.imagePictureBox = new System.Windows.Forms.PictureBox();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.seatsNumericUpDown)).BeginInit();
@@ -63,6 +62,7 @@ namespace Prototype
             this.editEventTabPage2.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox5
@@ -78,6 +78,8 @@ namespace Prototype
             // dateTimePicker
             // 
             this.dateTimePicker.Checked = false;
+            this.dateTimePicker.CustomFormat = "dd-MM-yyyy HH:mm";
+            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker.Location = new System.Drawing.Point(7, 20);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(215, 20);
@@ -124,15 +126,6 @@ namespace Prototype
             this.addAvatarButton.Text = "Изменить";
             this.addAvatarButton.UseVisualStyleBackColor = true;
             this.addAvatarButton.Click += new System.EventHandler(this.addAvatarButton_Click);
-            // 
-            // imagePictureBox
-            // 
-            this.imagePictureBox.Location = new System.Drawing.Point(13, 19);
-            this.imagePictureBox.Name = "imagePictureBox";
-            this.imagePictureBox.Size = new System.Drawing.Size(90, 90);
-            this.imagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.imagePictureBox.TabIndex = 8;
-            this.imagePictureBox.TabStop = false;
             // 
             // groupBox1
             // 
@@ -277,6 +270,15 @@ namespace Prototype
             this.descriptionRichTextBox.TabIndex = 0;
             this.descriptionRichTextBox.Text = "";
             // 
+            // imagePictureBox
+            // 
+            this.imagePictureBox.Location = new System.Drawing.Point(13, 19);
+            this.imagePictureBox.Name = "imagePictureBox";
+            this.imagePictureBox.Size = new System.Drawing.Size(90, 90);
+            this.imagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imagePictureBox.TabIndex = 8;
+            this.imagePictureBox.TabStop = false;
+            // 
             // EditEventForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -288,11 +290,9 @@ namespace Prototype
             this.Controls.Add(this.backButton);
             this.Name = "EditEventForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Прототип";
             this.Load += new System.EventHandler(this.EditEventForm_Load);
             this.groupBox5.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -302,6 +302,7 @@ namespace Prototype
             this.editEventTabPage2.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }

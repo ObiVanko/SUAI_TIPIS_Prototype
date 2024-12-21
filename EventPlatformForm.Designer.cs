@@ -168,7 +168,6 @@
             this.Controls.Add(this.imagePictureBox);
             this.Name = "EventPlatformForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Прототип";
             this.Activated += new System.EventHandler(this.EventPlatformForm_Activated);
             ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).EndInit();
             this.ResumeLayout(false);

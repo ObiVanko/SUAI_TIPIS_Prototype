@@ -159,7 +159,6 @@
             this.Controls.Add(this.backButton);
             this.Name = "EventArtistForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Прототип";
             this.Activated += new System.EventHandler(this.EventArtistForm_Activated);
             ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).EndInit();
             this.ResumeLayout(false);

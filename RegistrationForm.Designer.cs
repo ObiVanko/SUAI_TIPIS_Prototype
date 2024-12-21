@@ -87,11 +87,11 @@
             // 
             // confirmButton
             // 
-            this.confirmButton.Location = new System.Drawing.Point(116, 415);
+            this.confirmButton.Location = new System.Drawing.Point(147, 415);
             this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(124, 23);
+            this.confirmButton.Size = new System.Drawing.Size(93, 23);
             this.confirmButton.TabIndex = 4;
-            this.confirmButton.Text = "Зарегистрироваться";
+            this.confirmButton.Text = "Подтвердить";
             this.confirmButton.UseVisualStyleBackColor = true;
             this.confirmButton.Click += new System.EventHandler(this.confirmButton_Click);
             // 
@@ -196,7 +196,6 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "RegistrationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Прототип";
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);

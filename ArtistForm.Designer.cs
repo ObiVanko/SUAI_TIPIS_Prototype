@@ -242,7 +242,6 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "ArtistForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Прототип";
             this.Activated += new System.EventHandler(this.ArtistForm_Activated);
             this.tabControl1.ResumeLayout(false);
             this.eventsTabPage.ResumeLayout(false);

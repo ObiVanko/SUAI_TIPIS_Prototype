@@ -20,7 +20,6 @@ namespace Prototype
         public LoginForm()
         {
             InitializeComponent();
-
             dbHelper.TestConnection();
         }
 

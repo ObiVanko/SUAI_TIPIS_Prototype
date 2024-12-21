@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.nameLabel = new System.Windows.Forms.Label();
-            this.avatarPictureBox = new System.Windows.Forms.PictureBox();
             this.addressLabel = new System.Windows.Forms.Label();
             this.descriptionLabel = new System.Windows.Forms.Label();
             this.backButton = new System.Windows.Forms.Button();
+            this.avatarPictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,15 +45,6 @@
             this.nameLabel.TabIndex = 26;
             this.nameLabel.Text = "Название";
             this.nameLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // avatarPictureBox
-            // 
-            this.avatarPictureBox.Location = new System.Drawing.Point(12, 19);
-            this.avatarPictureBox.Name = "avatarPictureBox";
-            this.avatarPictureBox.Size = new System.Drawing.Size(90, 90);
-            this.avatarPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.avatarPictureBox.TabIndex = 27;
-            this.avatarPictureBox.TabStop = false;
             // 
             // addressLabel
             // 
@@ -84,6 +75,15 @@
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
+            // avatarPictureBox
+            // 
+            this.avatarPictureBox.Location = new System.Drawing.Point(12, 19);
+            this.avatarPictureBox.Name = "avatarPictureBox";
+            this.avatarPictureBox.Size = new System.Drawing.Size(90, 90);
+            this.avatarPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.avatarPictureBox.TabIndex = 27;
+            this.avatarPictureBox.TabStop = false;
+            // 
             // PlatformProfileForArtists
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -96,7 +96,6 @@
             this.Controls.Add(this.nameLabel);
             this.Name = "PlatformProfileForArtists";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Прототип";
             ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).EndInit();
             this.ResumeLayout(false);
 

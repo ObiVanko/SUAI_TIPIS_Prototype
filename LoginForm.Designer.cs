@@ -28,18 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.errorLabel = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.registrationButton = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.passwordTextBox = new System.Windows.Forms.TextBox();
-            this.loginTextBox = new System.Windows.Forms.TextBox();
-            this.loginButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.errorLabel = new System.Windows.Forms.Label();
+            this.loginButton = new System.Windows.Forms.Button();
+            this.loginTextBox = new System.Windows.Forms.TextBox();
+            this.passwordTextBox = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // errorLabel
+            // 
+            this.errorLabel.ForeColor = System.Drawing.Color.Red;
+            this.errorLabel.Location = new System.Drawing.Point(23, 171);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(200, 28);
+            this.errorLabel.TabIndex = 7;
+            this.errorLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // groupBox2
             // 
@@ -59,46 +68,6 @@
             this.registrationButton.Text = "Зарегистрироваться";
             this.registrationButton.UseVisualStyleBackColor = true;
             this.registrationButton.Click += new System.EventHandler(this.registrationButton_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.passwordTextBox);
-            this.groupBox1.Controls.Add(this.loginTextBox);
-            this.groupBox1.Controls.Add(this.loginButton);
-            this.groupBox1.Location = new System.Drawing.Point(23, 68);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 100);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            // 
-            // passwordTextBox
-            // 
-            this.passwordTextBox.Location = new System.Drawing.Point(7, 45);
-            this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.PasswordChar = '*';
-            this.passwordTextBox.Size = new System.Drawing.Size(187, 20);
-            this.passwordTextBox.TabIndex = 0;
-            this.passwordTextBox.Enter += new System.EventHandler(this.passwordTextBox_Enter);
-            this.passwordTextBox.Leave += new System.EventHandler(this.passwordTextBox_Leave);
-            // 
-            // loginTextBox
-            // 
-            this.loginTextBox.Location = new System.Drawing.Point(7, 19);
-            this.loginTextBox.Name = "loginTextBox";
-            this.loginTextBox.Size = new System.Drawing.Size(187, 20);
-            this.loginTextBox.TabIndex = 0;
-            this.loginTextBox.Enter += new System.EventHandler(this.loginTextBox_Enter);
-            this.loginTextBox.Leave += new System.EventHandler(this.loginTextBox_Leave);
-            // 
-            // loginButton
-            // 
-            this.loginButton.Location = new System.Drawing.Point(62, 71);
-            this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(75, 23);
-            this.loginButton.TabIndex = 3;
-            this.loginButton.Text = "Войти";
-            this.loginButton.UseVisualStyleBackColor = true;
-            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
             // label2
             // 
@@ -120,14 +89,44 @@
             this.label1.Text = "Войдите в свой аккаунт";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // errorLabel
+            // loginButton
             // 
-            this.errorLabel.ForeColor = System.Drawing.Color.Red;
-            this.errorLabel.Location = new System.Drawing.Point(23, 171);
-            this.errorLabel.Name = "errorLabel";
-            this.errorLabel.Size = new System.Drawing.Size(200, 28);
-            this.errorLabel.TabIndex = 7;
-            this.errorLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.loginButton.Location = new System.Drawing.Point(62, 71);
+            this.loginButton.Name = "loginButton";
+            this.loginButton.Size = new System.Drawing.Size(75, 23);
+            this.loginButton.TabIndex = 3;
+            this.loginButton.Text = "Войти";
+            this.loginButton.UseVisualStyleBackColor = true;
+            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
+            // 
+            // loginTextBox
+            // 
+            this.loginTextBox.Location = new System.Drawing.Point(7, 19);
+            this.loginTextBox.Name = "loginTextBox";
+            this.loginTextBox.Size = new System.Drawing.Size(187, 20);
+            this.loginTextBox.TabIndex = 0;
+            this.loginTextBox.Enter += new System.EventHandler(this.loginTextBox_Enter);
+            this.loginTextBox.Leave += new System.EventHandler(this.loginTextBox_Leave);
+            // 
+            // passwordTextBox
+            // 
+            this.passwordTextBox.Location = new System.Drawing.Point(7, 45);
+            this.passwordTextBox.Name = "passwordTextBox";
+            this.passwordTextBox.Size = new System.Drawing.Size(187, 20);
+            this.passwordTextBox.TabIndex = 1;
+            this.passwordTextBox.Enter += new System.EventHandler(this.passwordTextBox_Enter);
+            this.passwordTextBox.Leave += new System.EventHandler(this.passwordTextBox_Leave);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.passwordTextBox);
+            this.groupBox1.Controls.Add(this.loginTextBox);
+            this.groupBox1.Controls.Add(this.loginButton);
+            this.groupBox1.Location = new System.Drawing.Point(23, 68);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 100);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
             // 
             // LoginForm
             // 
@@ -150,16 +149,15 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox loginTextBox;
-        private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.Button registrationButton;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label errorLabel;
+        private System.Windows.Forms.Button loginButton;
+        private System.Windows.Forms.TextBox loginTextBox;
+        private System.Windows.Forms.TextBox passwordTextBox;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

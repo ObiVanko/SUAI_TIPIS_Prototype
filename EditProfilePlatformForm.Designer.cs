@@ -31,21 +31,21 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.descriptionRichTextBox = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.errorLabel = new System.Windows.Forms.Label();
             this.removeAvatarButton = new System.Windows.Forms.Button();
             this.addAvatarButton = new System.Windows.Forms.Button();
-            this.imagePictureBox = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.confirmButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
             this.addressTextBox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.errorLabel = new System.Windows.Forms.Label();
+            this.imagePictureBox = new System.Windows.Forms.PictureBox();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox6
@@ -79,6 +79,15 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Фото";
             // 
+            // errorLabel
+            // 
+            this.errorLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.errorLabel.ForeColor = System.Drawing.Color.Red;
+            this.errorLabel.Location = new System.Drawing.Point(109, 87);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(113, 27);
+            this.errorLabel.TabIndex = 12;
+            // 
             // removeAvatarButton
             // 
             this.removeAvatarButton.Location = new System.Drawing.Point(131, 61);
@@ -98,15 +107,6 @@
             this.addAvatarButton.Text = "Изменить";
             this.addAvatarButton.UseVisualStyleBackColor = true;
             this.addAvatarButton.Click += new System.EventHandler(this.addAvatarButton_Click);
-            // 
-            // imagePictureBox
-            // 
-            this.imagePictureBox.Location = new System.Drawing.Point(13, 19);
-            this.imagePictureBox.Name = "imagePictureBox";
-            this.imagePictureBox.Size = new System.Drawing.Size(90, 90);
-            this.imagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.imagePictureBox.TabIndex = 8;
-            this.imagePictureBox.TabStop = false;
             // 
             // groupBox1
             // 
@@ -162,14 +162,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Адрес";
             // 
-            // errorLabel
+            // imagePictureBox
             // 
-            this.errorLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.errorLabel.ForeColor = System.Drawing.Color.Red;
-            this.errorLabel.Location = new System.Drawing.Point(109, 87);
-            this.errorLabel.Name = "errorLabel";
-            this.errorLabel.Size = new System.Drawing.Size(113, 27);
-            this.errorLabel.TabIndex = 12;
+            this.imagePictureBox.Location = new System.Drawing.Point(13, 19);
+            this.imagePictureBox.Name = "imagePictureBox";
+            this.imagePictureBox.Size = new System.Drawing.Size(90, 90);
+            this.imagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imagePictureBox.TabIndex = 8;
+            this.imagePictureBox.TabStop = false;
             // 
             // EditProfilePlatformForm
             // 
@@ -184,14 +184,13 @@
             this.Controls.Add(this.backButton);
             this.Name = "EditProfilePlatformForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Прототип";
             this.groupBox6.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }

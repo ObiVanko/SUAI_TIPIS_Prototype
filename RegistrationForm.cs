@@ -54,8 +54,8 @@ namespace Prototype
                 {
                     dbHelper.CreatePlatform(user_id);
                 }
-                errorLabel.ForeColor = Color.Green;
-                errorLabel.Text = "Регистрация прошла успешно!";
+
+                MessageBox.Show("Регистрация прошла успешно!");
                 
                 backToMother();
             }

@@ -34,8 +34,7 @@ namespace Prototype
             artistsListView.SmallImageList.ImageSize = new Size(40, 40); // Размер изображений
             artistsListView.View = View.Details;
             artistsListView.Columns.Add("Фото", 40);
-            artistsListView.Columns.Add("Имя", 200);
-            artistsListView.Columns.Add("Возраст", 50);
+            artistsListView.Columns.Add("Имя", 150);
 
             // Заполняем ListView
             foreach (var artist in artists)
@@ -47,7 +46,6 @@ namespace Prototype
                 ListViewItem item = new ListViewItem();
                 item.Text = ""; // Фото будет в ImageList
                 item.SubItems.Add(artist.FullName);
-                item.SubItems.Add(age.ToString());
                 item.Tag = artist.ArtistID; // Сохраняем ID артиста для использования
 
                 Image artistImage;

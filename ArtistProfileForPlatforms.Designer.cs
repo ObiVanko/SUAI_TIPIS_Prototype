@@ -131,7 +131,6 @@
             this.Controls.Add(this.avatarPictureBox);
             this.Name = "ArtistProfileForPlatforms";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "ArtistProfileForPlatforms";
             ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).EndInit();
             this.ResumeLayout(false);
 
