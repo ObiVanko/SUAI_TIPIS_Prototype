@@ -139,10 +139,10 @@ namespace Prototype
                 {
                     ItemText = notification.Message,
                     ItemEventLinkText = dbHelper.GetEventById((int)notification.EventID).Name,
-                    ItemArtistLinkText = dbHelper.GetArtistById((int)notification.ArtistID).FullName,
+                    ItemArtistLinkText = notification.ArtistID == null ? "" : dbHelper.GetArtistById((int)notification.ArtistID).FullName,
                     NotificationID = notification.NotificationID,
                     EventID = (int)notification.EventID,
-                    ArtistID = (int)notification.ArtistID
+                    ArtistID = notification.ArtistID == null ? -1 : (int)notification.ArtistID,
                 };
 
                 // Подписываемся на события
@@ -161,10 +161,10 @@ namespace Prototype
                 {
                     ItemText = notification.Message,
                     ItemEventLinkText = dbHelper.GetEventById((int)notification.EventID).Name,
-                    ItemArtistLinkText = dbHelper.GetArtistById((int)notification.ArtistID).FullName,
+                    ItemArtistLinkText = notification.ArtistID == null ? "" : dbHelper.GetArtistById((int)notification.ArtistID).FullName,
                     NotificationID = notification.NotificationID,
                     EventID = (int)notification.EventID,
-                    ArtistID = (int)notification.ArtistID
+                    ArtistID = notification.ArtistID == null ? -1 : (int)notification.ArtistID,
                 };
 
                 item.ButtinOff();

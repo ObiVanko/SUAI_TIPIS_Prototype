@@ -1032,54 +1032,24 @@ namespace Prototype
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-
-                // Транзакция для обеспечения целостности данных
-                using (var transaction = connection.BeginTransaction())
+                try
                 {
-                    try
+                    using (var command = new SqlCommand("SignUpArtistForEvent", connection))
                     {
-                        // Записываем артиста на мероприятие в таблицу ArtistEvents
-                        string signUpQuery = "INSERT INTO dbo.ArtistEvents (ArtistID, EventID) VALUES (@ArtistID, @EventID)";
-                        using (var signUpCommand = new SqlCommand(signUpQuery, connection, transaction))
-                        {
-                            signUpCommand.Parameters.AddWithValue("@ArtistID", artistId);
-                            signUpCommand.Parameters.AddWithValue("@EventID", eventId);
-                            signUpCommand.ExecuteNonQuery();
-                        }
+                        command.CommandType = CommandType.StoredProcedure;
 
-                        // Получаем PlatformID для уведомления площадки
-                        string getPlatformQuery = "SELECT PlatformID FROM dbo.Events WHERE EventID = @EventID";
-                        int platformId;
-                        using (var getPlatformCommand = new SqlCommand(getPlatformQuery, connection, transaction))
-                        {
-                            getPlatformCommand.Parameters.AddWithValue("@EventID", eventId);
-                            platformId = (int)getPlatformCommand.ExecuteScalar();
-                        }
+                        command.Parameters.AddWithValue("@ArtistID", artistId);
+                        command.Parameters.AddWithValue("@EventID", eventId);
 
-                        // Создаем уведомление для площадки
-                        string notificationQuery = "INSERT INTO dbo.Notifications (UserID, Message, EventID, ArtistID) VALUES (@UserID, @Message, @EventID, @ArtistID)";
-                        using (var notificationCommand = new SqlCommand(notificationQuery, connection, transaction))
-                        {
-                            notificationCommand.Parameters.AddWithValue("@UserID", platformId); // Площадка
-                            notificationCommand.Parameters.AddWithValue("@Message", "Новый артист записался на ваше мероприятие.");
-                            notificationCommand.Parameters.AddWithValue("@EventID", eventId);
-                            notificationCommand.Parameters.AddWithValue("@ArtistID", artistId); // ID артиста, который записался
-                            notificationCommand.ExecuteNonQuery();
-                        }
-
-                        // Подтверждаем транзакцию
-                        transaction.Commit();
+                        command.ExecuteNonQuery();
                     }
-                    catch (Exception ex)
-                    {
-                        // В случае ошибки откатываем транзакцию
-                        transaction.Rollback();
-                        throw new Exception("Ошибка при записи артиста на мероприятие: " + ex.Message);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Ошибка при записи артиста на мероприятие: " + ex.Message);
                 }
             }
         }
-
         public bool IsArtistSignedUpForEvent(int artistId, int eventId)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -1102,40 +1072,21 @@ namespace Prototype
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-
-                // Отменяем запись артиста на мероприятие
-                string cancelSignUpQuery = "DELETE FROM dbo.ArtistEvents WHERE ArtistID = @ArtistID AND EventID = @EventID";
-                using (var command = new SqlCommand(cancelSignUpQuery, connection))
+                try
                 {
-                    command.Parameters.AddWithValue("@ArtistID", artistId);
-                    command.Parameters.AddWithValue("@EventID", eventId);
-                    command.ExecuteNonQuery();
-                }
-
-                string platformQuery = "SELECT PlatformID FROM dbo.Events WHERE EventID = @EventID";
-                int platformId = 0;
-                using (var command = new SqlCommand(platformQuery, connection))
-                {
-                    command.Parameters.AddWithValue("@EventID", eventId);
-                    var result = command.ExecuteScalar();
-                    platformId = result != null ? (int)result : 0;
-                }
-
-                if (platformId > 0)
-                {
-                    string notificationMessage = "Артист отменил запись";
-                    string notificationQuery = "INSERT INTO dbo.Notifications (UserID, Message, IsRead, CreatedAt, EventID, ArtistID) " +
-                                               "SELECT UserID, @Message, 0, GETDATE(), @EventID, @ArtistID " +
-                                               "FROM dbo.Platforms WHERE PlatformID = @PlatformID";
-
-                    using (var command = new SqlCommand(notificationQuery, connection))
+                    using (var command = new SqlCommand("CancelArtistSignUp", connection))
                     {
-                        command.Parameters.AddWithValue("@Message", notificationMessage);
-                        command.Parameters.AddWithValue("@PlatformID", platformId);
-                        command.Parameters.AddWithValue("@EventID", eventId);
+                        command.CommandType = CommandType.StoredProcedure;
+
                         command.Parameters.AddWithValue("@ArtistID", artistId);
+                        command.Parameters.AddWithValue("@EventID", eventId);
+
                         command.ExecuteNonQuery();
                     }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Ошибка при отмене записи артиста на мероприятие: " + ex.Message);
                 }
             }
         }
