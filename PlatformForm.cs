@@ -190,7 +190,7 @@ namespace Prototype
             var item = sender as ListItemControl2;
             if (item != null)
             {
-                var eventForm = new EventArtistForm(this, item.EventID);
+                var eventForm = new EventPlatformForm(this, item.EventID);
                 eventForm.Left = Left;
                 eventForm.Top = Top;
                 eventForm.Show();
